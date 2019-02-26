@@ -1,0 +1,58 @@
+
+.container-drag{
+    text-align: center;
+  }
+  
+  .header{
+    display: inline-table;
+    background-color: steelblue;
+    border: 1px solid;
+    width: 100%;
+  }
+  
+  .task-header {
+    display: inline-block;
+    background-color: skyblue;
+    border-bottom: 1px solid;
+    width: 100%;
+  }
+  
+  /*Tasks*/
+  .draggable {
+    width: 90%;
+    margin: 5px auto;
+    line-height: 5em;
+  }
+  
+  /*  
+    Columnas
+  */
+  .card{
+    border: 1px solid;
+  }
+  
+  .to_do{
+    width: 100%;
+    height: 100%;
+    top: 10;
+    background-color: dimgray;
+    border: 1px solid;
+  }
+  
+  .doing{
+    width: 100%;
+    height: 100%;
+    top: 10;
+    background-color: dimgray;  
+    border: 1px solid;
+  }
+  
+  .done{
+    width: 100%;
+    height: 100%;
+    top: 10;
+    background-color: dimgray;
+    border: 1px solid;
+  }
+  
+  

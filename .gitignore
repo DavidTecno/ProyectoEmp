@@ -1,0 +1,3 @@
+# con este fichero se ignoran todo lo que haya dentro para el git
+.vscode/
+node_modules/
