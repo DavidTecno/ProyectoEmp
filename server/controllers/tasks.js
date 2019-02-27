@@ -9,6 +9,7 @@ exports.postTasks = function (req, res) {
   task.name = req.body.name;
   task.project = req.body.project;
   task.category = req.body.category;
+  task.desc = req.body.desc;
 
   console.log(JSON.stringify(task));
 
@@ -101,13 +102,14 @@ exports.getTaskProject = function (req, res) {
 //Put
 exports.putTasks = function (req, res) {
   // Use the Task model to find a specific task
-  Task.findById(req.params.id, req.body, { new: true },
+  Task.findByIdAndUpdate(req.params.id, req.body, {new:true},
     (err, task) => {
+      
       if (err){
         res.send(err);
         return;
       }
-        
+
 
       task.save(function (err) {
         if (err) {
@@ -118,6 +120,7 @@ exports.putTasks = function (req, res) {
         }
         res.json(task);
       });
+
     });
 
 };

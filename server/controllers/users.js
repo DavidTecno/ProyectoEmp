@@ -57,7 +57,7 @@ exports.getUser = function (req, res) {
 //Put
 exports.putUsers = function (req, res) {
   // Use the User model to find a specific user
-  User.findById(req.params.id, req.body, { new: true },
+  User.findByIdAndUpdate(req.params.id, req.body, { new: true },
     (err, user) => {
       if (err){
         res.send(err);

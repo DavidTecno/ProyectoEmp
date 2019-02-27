@@ -57,6 +57,7 @@ class App extends Component {
           </Route>
           <Route path="/hours" component={Hour}>
           </Route>
+          
           {/* <Route exact path="/" component={SignUpForm}>
         </Route>
         <Route path="/sign-in" component={SignInForm}>

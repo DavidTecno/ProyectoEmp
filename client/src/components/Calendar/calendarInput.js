@@ -11,7 +11,8 @@ export default class Example extends React.Component {
     this.state = {
       firstDate: undefined,
       finishDate: undefined,
-      limitDate: undefined
+      limitDate: undefined, 
+      day: undefined
     };
     this.handleDayChange = this.handleDayChange.bind(this);
   }
@@ -34,6 +35,12 @@ export default class Example extends React.Component {
         limitDate: dayString
       });
 
+    }
+
+    if (this.props.date === "day") {
+      this.setState({
+        day: dayString
+      });
     }
 
     this.props.onAddValue(this.props.date, dayString);

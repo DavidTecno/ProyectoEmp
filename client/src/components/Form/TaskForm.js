@@ -1,20 +1,15 @@
 import React, { Component } from 'react';
 
-import CalendarInp from '../Calendar/calendarInput'
-
 class TaskForm extends Component {
     constructor() {
         super();
         this.state = {
             name: '',
-            client: '',
-            firstDate: undefined,
-            finishDate: undefined,
-            limitDate: undefined
+            desc: '',
+            category: 'to_do'
         };
         this.handleInput = this.handleInput.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleCalendar = this.handleCalendar.bind(this);
     }
 
     //cada vez que se escriba en input se ejecuta
@@ -30,42 +25,7 @@ class TaskForm extends Component {
     //al ser task añadidos en memoria se borran si se recarga la página
     handleSubmit(e) {
         e.preventDefault();
-        this.props.onAddProject(this.state);
-    }
-
-    handleCalendar(date, day) {
-        var newDate = '';
-        newDate = date;
-        switch (newDate) {
-            case "firstDate":
-                console.log("Project Form " + date)
-                this.setState({
-                    firstDate: day
-                })
-                console.log(this.state)
-
-                break;
-            case "finishDate":
-                console.log("Project Form " + date)
-                this.setState({
-                    finishDate: day
-                })
-                console.log(this.state)
-                break;
-
-            case "limitDate":
-                console.log("Project Form " + date)
-                this.setState({
-                    limitDate: day
-                })
-                console.log(this.state)
-                break;
-            default:
-                console.log('no entra nada')
-                break;
-        }
-
-
+        this.props.onAddTask(this.state);
     }
 
     render() {
@@ -79,34 +39,28 @@ class TaskForm extends Component {
                             className="form-control"
                             placeholder="Name"
                             onChange={this.handleInput}
+                            required
                         />
                     </div>
                     <div className="form-group">
                         <input
                             type="text"
-                            name="client"
+                            name="desc"
                             className="form-control"
-                            placeholder="Client"
+                            placeholder="Description"
                             onChange={this.handleInput}
                         />
                     </div>
                     <div className="form-group">
-                        <label>First Date</label>
-                        <CalendarInp
-                            date="firstDate"
-                            onAddValue={this.handleCalendar} />
-                    </div>
-                    <div className="form-group">
-                        <label>Final Date</label>
-                        <CalendarInp
-                            date="finishDate"
-                            onAddValue={this.handleCalendar} />
-                    </div>
-                    <div className="form-group">
-                        <label>Limit Date</label>
-                        <CalendarInp
-                            date="limitDate"
-                            onAddValue={this.handleCalendar} />
+                        <select 
+                            name="category"
+                            className="form-control"
+                            onChange={this.handleInput}
+                            >
+                            <option>to_do</option>
+                            <option>doing</option>
+                            <option>done</option>
+                        </select>
                     </div>
                     <button type="submit" className="btn btn-primary" onClick={this.handleSubmit}>
                         Save

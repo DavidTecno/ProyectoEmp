@@ -61,7 +61,7 @@ exports.getProject = function (req, res) {
 //Put
 exports.putProjects = function (req, res) {
   // Use the Project model to find a specific project
-  Project.findById(req.params.id, req.body, { new: true },
+  Project.findByIdAndUpdate(req.params.id, req.body, { new: true },
     (err, project) => {
       if (err){
         res.send(err);

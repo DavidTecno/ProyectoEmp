@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import ProjectForm from '../Form/ProjectForm';
+import TaskForm from '../Form/TaskForm';
 
 //Styled-Components
 //gray background
@@ -37,7 +37,7 @@ class ModalTask extends Component {
         return (
             <div style={backDropStyle} >
                 <div style={modalStyle}>
-                    <ProjectForm onAddProject={this.props.handleAddProject}/>
+                    <TaskForm onAddTask={this.props.handleAddTask}/>
                     
                 </div>
             </div>

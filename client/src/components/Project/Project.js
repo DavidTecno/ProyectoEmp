@@ -7,12 +7,14 @@ class Project extends Component {
         super();
         this.state = {
             projects: [],
-            show: false,    
+            show: false,   
+            edit: ''
         }
-        this.handleAddProject = this.handleAddProject.bind(this);
+        this.handleProject = this.handleProject.bind(this);
     }
 
     componentDidMount() {
+        console.log("did mount "+this.state.edit);
         this.callApi()
             .then(res => {
                 this.setState({ projects: res })
@@ -28,10 +30,8 @@ class Project extends Component {
     };
 
     handleSubmit = async e => {
-       // console.log("asincronada: " + JSON.stringify(e.name));
-        // console.log(this.state.post);
-        var name = e.name.toString()
-        console.log(name)
+        console.log("asincronada: " + JSON.stringify(e.name));
+
         await fetch('/api/projects', {
             method: 'POST',
             headers: {
@@ -39,14 +39,42 @@ class Project extends Component {
             },
             body: JSON.stringify(e)
             
-            
-        }).then(res => console.log(res.json()), window.location.reload()).catch(error => console.log(error))
-       // console.log(response);
+        }).then(res => console.log(res.json(), this.setState({
+            projects: this.state.projects, res
+        })), window.location.reload()).catch(error => console.log(error))
+        
     };
 
-    showModal = () => {
+    handleEdit = async e => {
+        console.log(e)
+
+        await fetch('/api/projects/'+this.state.edit, {
+            method: 'put',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(e)
+            
+            
+        }).then(res => console.log(res), window.location.reload())
+        .catch(error => console.log(error))
+    }
+
+    showModal = (e) => {
+        if(typeof(e)==="number"){
+            console.log(e)
+            this.setState({
+                edit: this.state.projects[e]._id
+            })
+            console.log(this.state.edit)
+        }else {
+            this.setState({
+                edit: ''
+            })
+            console.log(this.state.edit)
+
+        }
         this.setState({
-            ...this.state,
             show: !this.state.show
         });
     }
@@ -62,38 +90,16 @@ class Project extends Component {
 
 
 
-    handleAddProject(project) {
-        // this.setState({
-        //     projects: [...this.state.projects, project]
-        // })
+    handleProject(project) {
+        console.log(this.state.edit)
+        if(this.state.edit!==''){
+            this.handleEdit(project);
+        }else {
+            console.log("desde handleAddProject: " + JSON.stringify(project));
 
-        console.log("desde handleAddProject: " + JSON.stringify(project));
-
-        // this.setState({
-        //     post: project
-        // });
-
-
-        this.handleSubmit(project);
-        // console.log(project)
-
-        // this.handleSubmit;
-    }
-
-    //no funciona
-    editProject(index, project) {
-        this.setState({
-            projects: this.state.projects.filter((e, i) => {
-                if (i === index) {
-
-                    return i === project;
-                } else {
-
-                    return i;
-                }
-
-            })
-        })
+            this.handleSubmit(project);
+        }
+        
     }
 
     removeProject = async (e) => {
@@ -129,7 +135,7 @@ class Project extends Component {
                                     <button className="btn btn-danger" onClick={this.removeProject.bind(this, i)}>Delete</button>
                                 </div>
                                 <div className="col-sm-6 col-6">
-                                    <button className="btn btn-success" onClick={this.showModal}>Edit</button>
+                                    <button className="btn btn-success" onClick={this.showModal.bind(this, i)}>Edit</button>
                                 </div>
                             </div>
 
@@ -151,16 +157,9 @@ class Project extends Component {
                     <div className="col-md-4 col-sm-4 col-lg-4"></div>
                     <div className="col-md-4 col-sm-4 col-lg-4">
                         <div className="row">
-                            <div className="col-6 col-md-6 col-sm-6 col-lg-6"><button className="btn btn-primary" onClick={this.showModal}>Create</button></div>
-                            <div className="col-4 col-md-6 col-sm-6 col-lg-6">
-                                <select
-                                    name="priority"
-                                    className="form-control">
-                                    <option>low</option>
-                                    <option>medium</option>
-                                    <option>high</option>
-                                </select>
-                            </div>
+                        <div className="col-4 col-md-4 col-sm-4 col-lg-4"></div>
+                            <div className="col-4 col-md-4 col-sm-4 col-lg-4"><button className="btn btn-primary" onClick={this.showModal}>Create</button></div>
+                            <div className="col-4 col-md-4 col-sm-4 col-lg-4"></div>
                         </div>
 
 
@@ -175,7 +174,7 @@ class Project extends Component {
                 <Modal
                     onClose={this.showModal}
                     show={this.state.show}
-                    handleAddProject={this.handleAddProject}>
+                    handleProject={this.handleProject}>
                 </Modal>
             </>
             // </div>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import ProjectForm from '../Form/ProjectForm';
+import HourForm from '../Form/HourForm';
 
 //Styled-Components
 //gray background
@@ -24,7 +24,7 @@ const modalStyle = {
     position: 'relative'
 }
 
-class Modal extends Component {
+class ModalTask extends Component {
 
     onClose = (e) => {
         this.props.onClose && this.props.onClose(e);
@@ -37,7 +37,7 @@ class Modal extends Component {
         return (
             <div style={backDropStyle} >
                 <div style={modalStyle}>
-                    <ProjectForm onAddProject={this.props.handleProject}/>
+                    <HourForm onAddHour={this.props.handleHourTask}/>
                     
                 </div>
             </div>
@@ -46,4 +46,4 @@ class Modal extends Component {
 
 }
 
-export default Modal
+export default ModalTask
